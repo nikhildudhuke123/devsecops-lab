@@ -26,3 +26,4 @@ credentials.*
 # OS
 .DS_Store
 Thumbs.db
+app/users.db
