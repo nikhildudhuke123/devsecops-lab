@@ -25,9 +25,9 @@ def get_user():
 
     conn = get_db()
 
-    query = "SELECT id, username, email FROM users WHERE id = ?"
+    query = "SELECT id, username, email FROM users WHERE id = " + user_id
 
-    result = conn.execute(query, (user_id,)).fetchall()
+    result = conn.execute(query).fetchall()
 
     conn.close()
 
