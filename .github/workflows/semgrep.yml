@@ -24,7 +24,7 @@ jobs:
         run: semgrep scan --config auto --error .
 
       - name: Run Trivy SCA
-        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8
+        uses: aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8
         with:
           scan-type: fs
           scanners: vuln
