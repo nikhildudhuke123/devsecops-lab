@@ -3,6 +3,7 @@
 A hands-on DevSecOps security engineering lab covering:
 
 - Git & GitHub
+- Linux
 - Docker
 - SAST
 - SCA
