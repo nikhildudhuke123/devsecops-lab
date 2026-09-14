@@ -33,3 +33,15 @@ jobs:
 
       - name: Run Gitleaks Secret Scan
         uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e
+
+      - name: Build Docker image
+        run: docker build --no-cache -t devsecops-lab:${{ github.sha }} ./app
+
+      - name: Run Trivy Container Scan
+        uses: aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8
+        with:
+          image-ref: devsecops-lab:${{ github.sha }}
+          format: table
+          severity: HIGH,CRITICAL
+          exit-code: '1'
+          ignore-unfixed: true
