@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
 
       - name: Install Semgrep
         run: python3 -m pip install semgrep
