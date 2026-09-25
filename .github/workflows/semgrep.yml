@@ -49,7 +49,7 @@ jobs:
         run: for i in {1..30}; do curl -fsS http://127.0.0.1:5001/ && break; sleep 2; done
 
       - name: Run OWASP ZAP DAST
-        run: docker run --rm --network host -v "$PWD:/zap/wrk:rw" ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://127.0.0.1:5001 -r zap-report.html
+        run: docker run --rm --user 0 --network host -v "$PWD:/zap/wrk:rw" ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://127.0.0.1:5001 -r zap-report.html
 
       - name: Stop DAST container
         if: always()
