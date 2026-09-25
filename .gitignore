@@ -30,3 +30,13 @@ app/users.db
 
 devsecops.local.crt
 devsecops.local.key
+
+# Terraform state
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Terraform state
+*.tfstate
+*.tfstate.*
+.terraform/
