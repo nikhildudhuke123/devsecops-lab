@@ -43,7 +43,7 @@ jobs:
         run: docker build --no-cache -t devsecops-lab:${{ github.sha }} ./app
 
       - name: Generate SBOM
-        uses: anchore/sbom-action@v0
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610
         with:
           image: devsecops-lab:${{ github.sha }}
           format: cyclonedx-json
