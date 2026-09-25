@@ -3,6 +3,28 @@ import sqlite3
 
 app = Flask(__name__)
 
+class RemoveServerHeaderMiddleware:
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        def custom_start_response(status, headers, exc_info=None):
+            headers = [(k, v) for k, v in headers if k.lower() != "server"]
+            return start_response(status, headers, exc_info)
+        return self.app(environ, custom_start_response)
+
+app.wsgi_app = RemoveServerHeaderMiddleware(app.wsgi_app)
+
+@app.after_request
+def add_security_headers(response):
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'; form-action 'none'; base-uri 'none'"
+    response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+    response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
+    response.headers["Cache-Control"] = "no-store"
+    response.headers.pop("Server", None)
+    return response
+
 DATABASE = "users.db"
 
 
