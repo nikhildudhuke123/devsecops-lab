@@ -42,6 +42,14 @@ jobs:
       - name: Build Docker image
         run: docker build --no-cache -t devsecops-lab:${{ github.sha }} ./app
 
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          image: devsecops-lab:${{ github.sha }}
+          format: cyclonedx-json
+          output-file: sbom-${{ github.sha }}.json
+          artifact-name: sbom-${{ github.sha }}.json
+
       - name: Start application for DAST
         run: docker run -d --name devsecops-dast -p 5001:5000 devsecops-lab:${{ github.sha }}
 
