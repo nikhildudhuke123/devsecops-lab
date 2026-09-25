@@ -1,0 +1,23 @@
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: require-run-as-non-root
+spec:
+  failurePolicy: Fail
+  validationActions:
+    - Deny
+  matchConstraints:
+    resourceRules:
+      - apiGroups:
+          - apps
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - deployments
+        scope: Namespaced
+  validations:
+    - expression: "has(object.spec.template.spec.securityContext) && object.spec.template.spec.securityContext.runAsNonRoot == true"
+      message: "Deployments must set spec.template.spec.securityContext.runAsNonRoot to true."
