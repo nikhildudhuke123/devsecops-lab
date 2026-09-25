@@ -1,0 +1,28 @@
+name: Checkov IaC Security
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  checkov:
+    name: Checkov Terraform Scan
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+
+      - name: Install Checkov
+        run: python3 -m pip install checkov==3.3.17
+
+      - name: Run Checkov
+        run: checkov -d terraform/aws --framework terraform
