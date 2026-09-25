@@ -27,3 +27,6 @@ credentials.*
 .DS_Store
 Thumbs.db
 app/users.db
+
+devsecops.local.crt
+devsecops.local.key

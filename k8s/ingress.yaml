@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: devsecops-app
+  namespace: devsecops
+spec:
+  tls:
+    - hosts:
+        - devsecops.local
+      secretName: devsecops-tls
+  ingressClassName: nginx
+  rules:
+    - host: devsecops.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: devsecops-app
+                port:
+                  number: 5000
