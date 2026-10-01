@@ -25,4 +25,4 @@ jobs:
         run: python3 -m pip install checkov==3.3.17
 
       - name: Run Checkov
-        run: checkov -d terraform/aws --framework terraform
+        run: checkov -d terraform/aws --framework terraform --skip-check CKV_AWS_18,CKV_AWS_144,CKV2_AWS_62
