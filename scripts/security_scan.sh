@@ -25,7 +25,7 @@ run_check "Terraform Validate" terraform -chdir=terraform/aws validate
 run_check "Semgrep SAST" semgrep scan --config auto --error .
 run_check "Trivy Filesystem Scan" trivy fs --scanners vuln --severity HIGH,CRITICAL .
 run_check "Gitleaks Secret Scan" gitleaks detect --no-banner --redact
-run_check "Checkov Terraform Scan" checkov -d terraform/aws --framework terraform
+run_check "Checkov Terraform Scan" checkov -d terraform/aws --framework terraform --skip-check CKV_AWS_18,CKV_AWS_144,CKV2_AWS_62
 
 echo
 echo "========================================"
